@@ -9,8 +9,6 @@ def jsonify(content: str):
     return json.loads(content)
 
     
-
-
 def gen_ep_from_player_url(url :str, total_ep: Union[int, str]) -> List[str]:
     url = url[:url.index('{')]
     player_urls = []

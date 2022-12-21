@@ -3,7 +3,7 @@ from exceptions import StatusCodeError
 
 
 class GDrivePlayer:
-    
+
     url_anime =  "https://api.gdriveplayer.us/v1/animes/"
     url_movie = "https://api.gdriveplayer.us/v1/movie/"
     url_drama = "https://api.gdriveplayer.us/v1/drama/"
