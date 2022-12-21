@@ -1,5 +1,5 @@
 from gdriveplayer import GDrivePlayer
-from exceptions import SearchLimitError
+from exceptions import SearchLimitError, AnimeIDNotFoundError
 from typing import Union, Optional, List
 from utils import  plus_encode, jsonify, gen_ep_from_player_url
 
@@ -78,7 +78,7 @@ class GAnime(GDrivePlayer):
 
     def latestAnimes(self, limit: Optional[Union[str, int]] = 10, page: Optional[Union[str, int]] = 1, order: Optional[str] = "last_updated", sort: Optional[str] = "DESC") -> List[Anime]:
         if limit > 100:
-            raise SearchLimitError(100, f"Limit cannot exceed 100 animes. But you requested {limit} animes.")
+            raise SearchLimitError(limit=limit)
         url = f"{self.__url_anime}newest?limit={limit}&page={page}&order={order}&sort={sort}"
         res = jsonify(super().request(url))
         animeList = []
@@ -86,6 +86,15 @@ class GAnime(GDrivePlayer):
             animeList.append(self.__json_to_animeObj(a, 0))
 
         return animeList
+
+
+    def animeDetail(self, id: Union[str, int]) -> Anime:
+        url = f"{self.__url_anime}id/{id}"
+        try:
+            res = jsonify(super().request(url))
+            return self.__json_to_animeObj(res[0], 0)
+        except KeyError:
+            raise AnimeIDNotFoundError(id=id)
 
     def __json_to_animeObj(self, an: dict, obj: bool):
 
@@ -116,7 +125,3 @@ class GAnime(GDrivePlayer):
                     sub=an["sub"],
                     player_url=gen_ep_from_player_url(an["player_url"], an["total_episode"])
                 )
-
-a = GAnime().latestAnimes()
-for i in a:
-    print(i.title)
