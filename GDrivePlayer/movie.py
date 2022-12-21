@@ -129,7 +129,3 @@ class GMovie(GDrivePlayer):
             return MovieIMDB(**res)
         except KeyError:
             raise IDNotFoundError(id=id)
-
-
-m = GMovie().movieDetail('tt3221698')
-print(m.plot)

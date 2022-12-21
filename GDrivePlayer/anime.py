@@ -97,7 +97,3 @@ class GAnime(GDrivePlayer):
         except KeyError:
             raise IDNotFoundError(id=id)
 
-
-a = GAnime().search('bocchi the rock', limit=1)
-for i in a:
-    print(i.player_url)
