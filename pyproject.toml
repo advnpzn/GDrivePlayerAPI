@@ -1,11 +1,14 @@
 [tool.poetry]
 name = "gdriveplayer"
-version = "0.1.0"
+version = "0.1.1"
 description = "A python wrapper for gdriveplayer.co API"
 authors = ["adenosinetp10 <adenosinetp10@gmail.com>"]
-license = "GPLv3"
+license = "GPL-3.0-or-later"
 readme = "README.md"
 packages = [{include = "GDrivePlayer"}]
+homepage = "https://github.com/adenosinetp10/GDrivePlayerAPI"
+repository = "https://github.com/adenosinetp10/GDrivePlayerAPI"
+keywords = ["poetry", "python", "api", "wrapper", "gdrive", "gdriveplayer"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
