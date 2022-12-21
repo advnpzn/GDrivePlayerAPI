@@ -1,7 +1,7 @@
-from gdriveplayer import GDrivePlayer
-from exceptions import SearchLimitError, IDNotFoundError
+from .gdriveplayer import GDrivePlayer
+from .exceptions import SearchLimitError, IDNotFoundError
 from typing import Union, Optional, List
-from utils import  plus_encode, jsonify
+from .utils import  plus_encode, jsonify
 
 class Movie:
 

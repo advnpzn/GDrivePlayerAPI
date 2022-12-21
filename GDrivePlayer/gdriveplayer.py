@@ -1,5 +1,5 @@
 import requests
-from exceptions import StatusCodeError
+from .exceptions import StatusCodeError
 
 
 class GDrivePlayer:
