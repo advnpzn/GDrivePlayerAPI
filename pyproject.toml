@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gdriveplayer-api"
+name = "gdriveplayer"
 version = "0.1.0"
 description = "A python wrapper for gdriveplayer.co API"
 authors = ["adenosinetp10 <adenosinetp10@gmail.com>"]
