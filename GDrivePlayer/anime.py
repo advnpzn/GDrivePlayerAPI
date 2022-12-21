@@ -1,5 +1,5 @@
 from gdriveplayer import GDrivePlayer
-from exceptions import SearchLimitError, AnimeIDNotFoundError
+from exceptions import SearchLimitError, IDNotFoundError
 from typing import Union, Optional, List
 from utils import  plus_encode, jsonify, gen_ep_from_player_url
 
@@ -66,12 +66,13 @@ class GAnime(GDrivePlayer):
 
     def search(self, title: Optional[str] = '', limit: Optional[Union[int, str]] = 10, page: Optional[Union[int, str]] = 1) -> List[Anime]:
         if limit > 100:
-            raise SearchLimitError(100, f"Limit cannot exceed 100 animes. But you requested {limit} animes.")
+            raise SearchLimitError(limit=limit)
         url = f"{self.__url_anime}search?title={plus_encode(title)}&limit={limit}&page={page}"
         res = jsonify(super().request(url))
         animeList = []
         for a in res:
-            animeList.append(self.__json_to_animeObj(a, 1))
+            a["player_url"] = gen_ep_from_player_url(a["player_url"], a["total_episode"])
+            animeList.append(Anime(**a))
 
         return animeList
 
@@ -83,7 +84,7 @@ class GAnime(GDrivePlayer):
         res = jsonify(super().request(url))
         animeList = []
         for a in res:
-            animeList.append(self.__json_to_animeObj(a, 0))
+            animeList.append(LatestAnime(**a))
 
         return animeList
 
@@ -92,36 +93,11 @@ class GAnime(GDrivePlayer):
         url = f"{self.__url_anime}id/{id}"
         try:
             res = jsonify(super().request(url))
-            return self.__json_to_animeObj(res[0], 0)
+            return Anime(**res[0])
         except KeyError:
-            raise AnimeIDNotFoundError(id=id)
+            raise IDNotFoundError(id=id)
 
-    def __json_to_animeObj(self, an: dict, obj: bool):
 
-        if obj is True:
-
-            return Anime(
-                    id=an["id"],
-                    title=an["title"],
-                    poster=an["poster"],
-                    genre=an["genre"],
-                    summary=an["summary"],
-                    status=an["status"],
-                    type=an["type"],
-                    total_episode=an["total_episode"],
-                    sub=an["sub"],
-                    player_url=gen_ep_from_player_url(an["player_url"], an["total_episode"])
-                )
-        else:
-
-            return LatestAnime(
-                    id=an["id"],
-                    title=an["title"],
-                    poster=an["poster"],
-                    genre=an["genre"],
-                    status=an["status"],
-                    type=an["type"],
-                    total_episode=an["total_episode"],
-                    sub=an["sub"],
-                    player_url=gen_ep_from_player_url(an["player_url"], an["total_episode"])
-                )
+a = GAnime().search('bocchi the rock', limit=1)
+for i in a:
+    print(i.player_url)
