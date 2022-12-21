@@ -109,7 +109,7 @@ Bocchi the Rock!
 Hitori Gotou is a high school girl whos starting to learn to play the guitar because she dreams of being in a band, but shes so shy that she hasnt made a single friend. However, her dream might come true after she meets Nijika Ijichi, a girl who plays drums and is looking for a new guitarist for her band.
 ```
 
-The classes such as `GDrama` and `GMovie` also contain similar methods and similar Objects like `Anime` and `LatestAnime'.
+The classes such as `GDrama` and `GMovie` also contain similar methods and similar Objects like `Anime` and `LatestAnime`.
 
 
 ### Disclaimer
