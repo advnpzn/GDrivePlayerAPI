@@ -11,6 +11,7 @@ class Series:
                     imdb,
                     title,
                     poster,
+                    summary,
                     genre,
                     status,
                     type,
@@ -24,6 +25,7 @@ class Series:
         self.poster = poster 
         self.genre = genre
         self.imdb = imdb
+        self.summary = summary
         self.status = status
         self.type = type
         self.total_episode = total_episode
@@ -39,12 +41,12 @@ class SeriesDetail:
                     imdb,
                     title,
                     poster,
+                    summary,
                     genre,
                     status,
                     type,
                     total_episode,
                     sub,
-                    detail,
                     list_episode
                 ) -> None:
 
@@ -54,11 +56,11 @@ class SeriesDetail:
         self.genre = genre
         self.imdb = imdb
         self.status = status
+        self.summary = summary
         self.type = type
         self.total_episode = total_episode
         self.sub = sub
-        self.detail = detail
-        self.list_episode = list_episode 
+        self.list_episode: List[EpisodeList] = list_episode 
 
 
 class EpisodeList:
@@ -101,13 +103,14 @@ class GSeries(GDrivePlayer):
 
 
     def seriesDetail(self, id: Union[str, int], season: Optional[Union[int, str]]=1) -> SeriesDetail:
-        url = f"{self.__url_Series}/imdb/{id}/season{season}"
+        url = f"{self.__url_Series}imdb/{id}/season{season}"
+
         try:
             res = jsonify(super().request(url))
             ep_list = []
-            for i in res["list_episode"]:
+            for i in res[0]["list_episode"]:
                 ep_list.append(EpisodeList(**i))
-            res["list_episode"] = ep_list
+            res[0]["list_episode"] = ep_list
             return SeriesDetail(**res[0])
         except KeyError:
             raise IDNotFoundError(id=id)

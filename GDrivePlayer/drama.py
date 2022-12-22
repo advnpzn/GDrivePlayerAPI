@@ -11,6 +11,7 @@ class Drama:
                     title,
                     poster,
                     genre,
+                    summary,
                     status,
                     type,
                     total_episode,
@@ -22,6 +23,7 @@ class Drama:
         self.title = title
         self.poster = poster 
         self.genre = genre
+        self.summary = summary
         self.status = status
         self.type = type
         self.total_episode = total_episode

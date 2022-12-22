@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gdriveplayer"
-version = "0.2.3"
+version = "0.2.5"
 description = "A python wrapper for gdriveplayer.co API"
 authors = ["adenosinetp10 <adenosinetp10@gmail.com>"]
 license = "GPL-3.0-or-later"
