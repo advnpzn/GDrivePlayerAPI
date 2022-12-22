@@ -65,6 +65,20 @@ class GAnime(GDrivePlayer):
 
     def search(self, title: Optional[str] = '', limit: Optional[Union[int, str]] = 10,
                page: Optional[Union[int, str]] = 1) -> List[Anime]:
+        """GAnime method to search for an anime.
+
+        Parameters:
+            title (``str``, *Optional*):
+                title of the anime, e.g.: "Chainsaw man"
+            limit (``str``, ``int``, *Optional*):
+                the no.of queries that must be returned, e.g.: 5
+            page (``str``, ``int``, *Optional*):
+                the page.no from which the queries must be fetched from, e.g.: 4
+
+        Returns (``List[Anime]``):
+            A list of Anime Objects.
+
+        """
         if limit > 100:
             raise SearchLimitError(limit=limit)
         url = f"{self.__url_anime}search?title={plus_encode(title)}&limit={limit}&page={page}"
@@ -77,7 +91,7 @@ class GAnime(GDrivePlayer):
         return animeList
 
     def latestAnimes(self, limit: Optional[Union[str, int]] = 10, page: Optional[Union[str, int]] = 1,
-                     order: Optional[str] = "last_updated", sort: Optional[str] = "DESC") -> List[Anime]:
+                     order: Optional[str] = "last_updated", sort: Optional[str] = "DESC") -> List[LatestAnime]:
         if limit > 100:
             raise SearchLimitError(limit=limit)
         url = f"{self.__url_anime}newest?limit={limit}&page={page}&order={order}&sort={sort}"
