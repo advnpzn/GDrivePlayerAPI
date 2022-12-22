@@ -8,11 +8,12 @@ pip install gdriveplayer
 
 ### Usage
 
-The wrapper consists of 3 main classes.
+The wrapper consists of 4 main classes.
 
 * `GAnime`
 * `GMovie`
 * `GDrama`
+* `GSeries`
 
 Each of those classes contain very similar methods.
 
@@ -109,7 +110,7 @@ Bocchi the Rock!
 Hitori Gotou is a high school girl whos starting to learn to play the guitar because she dreams of being in a band, but shes so shy that she hasnt made a single friend. However, her dream might come true after she meets Nijika Ijichi, a girl who plays drums and is looking for a new guitarist for her band.
 ```
 
-The classes such as `GDrama` and `GMovie` also contain similar methods and similar Objects like `Anime` and `LatestAnime`.
+The classes such as `GDrama`, `GMovie` and `GSeries` also contain similar methods and similar Objects like `Anime` and `LatestAnime`.
 
 
 ### Disclaimer
