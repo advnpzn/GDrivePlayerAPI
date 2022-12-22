@@ -1,29 +1,29 @@
-from .gdriveplayer import GDrivePlayer
-from .exceptions import SearchLimitError, IDNotFoundError
+from GDrivePlayer.gdriveplayer import GDrivePlayer
+from GDrivePlayer.exceptions import SearchLimitError, IDNotFoundError
 from typing import Union, Optional, List
-from .utils import  plus_encode, jsonify
+from GDrivePlayer.utils import plus_encode, jsonify
+
 
 class Movie:
 
     def __init__(
-                    self, 
-                    title, 
-                    year,
-                    imdb,
-                    poster,
-                    genre,
-                    runtime,
-                    director,
-                    country,
-                    rating,
-                    votes,
-                    sub,
-                    quality
-                ) -> None:
-
+            self,
+            title,
+            year,
+            imdb,
+            poster,
+            genre,
+            runtime,
+            director,
+            country,
+            rating,
+            votes,
+            sub,
+            quality
+    ) -> None:
         self.title = title
         self.year = year
-        self.imdb = imdb 
+        self.imdb = imdb
         self.poster = poster
         self.genre = genre
         self.runtime = runtime
@@ -34,7 +34,6 @@ class Movie:
         self.sub = sub
         self.quality = quality
 
-
     def getPlayer(self) -> str:
         return f"http://database.gdriveplayer.us/player.php?imdb={self.imdb}"
 
@@ -42,30 +41,29 @@ class Movie:
 class MovieIMDB:
 
     def __init__(
-                    self, 
-                    Title, 
-                    Year,
-                    Rated,
-                    Released,
-                    Runtime,
-                    Genre,
-                    Director,
-                    Writer,
-                    Actors,
-                    Plot,
-                    Language,
-                    Country,
-                    Awards,
-                    Poster,
-                    imdbRating,
-                    imdbVotes,
-                    imdbID,
-                    Type,
-                    Production,
-                    Response,
-                    player_url
-                ) -> None:
-
+            self,
+            Title,
+            Year,
+            Rated,
+            Released,
+            Runtime,
+            Genre,
+            Director,
+            Writer,
+            Actors,
+            Plot,
+            Language,
+            Country,
+            Awards,
+            Poster,
+            imdbRating,
+            imdbVotes,
+            imdbID,
+            Type,
+            Production,
+            Response,
+            player_url
+    ) -> None:
         self.title = Title
         self.year = Year
         self.rated = Rated
@@ -89,8 +87,6 @@ class MovieIMDB:
         self.player_url = player_url
 
 
-
-
 class GMovie(GDrivePlayer):
 
     def __init__(self) -> None:
@@ -98,7 +94,9 @@ class GMovie(GDrivePlayer):
 
         super().__init__()
 
-    def search(self, title: Optional[str] = '', year: Optional[Union[str, int]] = '', genre: Optional[str] = '', country: Optional[str] = '', actor: Optional[str] = '', limit: Optional[Union[int, str]] = 10, page: Optional[Union[int, str]] = 1) -> List[Movie]:
+    def search(self, title: Optional[str] = '', year: Optional[Union[str, int]] = '', genre: Optional[str] = '',
+               country: Optional[str] = '', actor: Optional[str] = '', limit: Optional[Union[int, str]] = 10,
+               page: Optional[Union[int, str]] = 1) -> List[Movie]:
         if limit > 100:
             raise SearchLimitError(limit=limit)
         url = f"{self.__url_movie}search?title={plus_encode(title)}&limit={limit}&page={page}&year={year}&genre={genre}&country={country}&actor={actor}"
@@ -109,8 +107,8 @@ class GMovie(GDrivePlayer):
 
         return movieList
 
-
-    def latestMovies(self, limit: Optional[Union[str, int]] = 10, page: Optional[Union[str, int]] = 1, order: Optional[str] = "last_updated", sort: Optional[str] = "DESC") -> List[Movie]:
+    def latestMovies(self, limit: Optional[Union[str, int]] = 10, page: Optional[Union[str, int]] = 1,
+                     order: Optional[str] = "last_updated", sort: Optional[str] = "DESC") -> List[Movie]:
         if limit > 100:
             raise SearchLimitError(limit=limit)
         url = f"{self.__url_movie}newest?limit={limit}&page={page}&order={order}&sort={sort}"
@@ -120,7 +118,6 @@ class GMovie(GDrivePlayer):
             movieList.append(Movie(**a))
 
         return movieList
-
 
     def movieDetail(self, imdb_id: Union[str, int]) -> Movie:
         url = f"{self.__url_movie[:-6]}imdb/{imdb_id}"
